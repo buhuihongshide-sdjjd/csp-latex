@@ -1,0 +1,1 @@
+latexmk -xelatex $1.tex
