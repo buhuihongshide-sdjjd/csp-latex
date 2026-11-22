@@ -2,11 +2,6 @@
 
 \usepackage[a4paper, margin=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
 \usepackage[UTF8,fontset=mac]{ctex}
-\setCJKmainfont[
-    BoldFont = {Heiti SC},
-    BoldFeatures = {FakeBold = 3}
-]{Songti SC}
-
 \usepackage{fontspec}
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage{booktabs}
@@ -14,7 +9,7 @@
 \usepackage{fancyhdr}
 \usepackage{enumitem}
 \usepackage{xcolor}
-\usepackage{hyperref}
+\usepackage[unicode, bookmarksnumbered=true]{hyperref}
 \usepackage{CJKfntef}
 \usepackage{printlen} % 引入打印长度的宏包
 \usepackage{array}
@@ -25,7 +20,19 @@
 \usepackage{multirow}
 \usepackage{fontspec}
 
-\setmonofont{Menlo}
+% 字体
+\setmonofont{Consolas}
+\setCJKmainfont[
+    UprightFont = {Songti SC Light},
+    BoldFont = {Heiti SC Medium}
+]{Songti SC}
+\newcommand{\heitiBold}[1]{%
+    \raisebox{-0.04em}{\textbf{#1}}%
+}
+\newcommand{\Bunderdot}[1]{% 加粗 + 下加点
+    \CJKunderdot{\raisebox{-0.04em}{\textbf{#1}}}
+}
+\newCJKfontfamily{\kaiti}{Kaiti SC}
 
 % 一级标题：居中、大号、加粗
 \titleformat{\section}
@@ -46,19 +53,17 @@
 \fancyhf{}
 \newcommand{\currentproblem}{}% 当前题目的中文名称
 \fancyhead[L]{\small 2026 CCF 非专业级软件能力认证 CSP-J/S 2026 第二轮} % 左上角：考试名称
-\fancyhead[R]{\small 提高组（非官方试卷）\ \currentproblem} % 右上角：组别 + 当前题目名称
+\fancyhead[R]{\small 提高组\ \currentproblem} % 右上角：组别 + 当前题目名称
 \fancyfoot[C]{%
     \small 第 \thepage\ 页 \hspace{1em} 共 \textcolor{blue}{\pdfpagerefbox} 页
 } % 页脚：总页数用蓝色显示
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0pt}
 \newcommand{\pdfpagerefbox}{13} % 手动设置总页数
+
 % 首页专用页眉页脚样式
 \fancypagestyle{firstpage}{
     \fancyhf{}
-    % \fancyfoot[C]{%
-    %     \small 第 \thepage\ 页 / 共 \textcolor{blue}{\pdfpagerefbox} 页%
-    % }
     \renewcommand{\headrulewidth}{0pt}
 }
 
@@ -66,19 +71,22 @@
 % 每道题作为一级 section
 \newcommand{\problemheading}[2]{%
     \clearpage
+    \pdfbookmark[0]{#1（#2）}{#2}%
     \renewcommand{\currentproblem}{#1（#2）}%
     \section*{#1 (#2)}%
 }
 % 题目内部标题作为二级 subsection
-\newcommand{\sectionbox}[1]{
+\newcommand{\sectionbox}[2]{
     \vspace{1.3em}%
     \noindent\hspace*{1em}%
+    \pdfbookmark[1]{#1}{#2}%
     {\large\bfseries【#1】}\par
     \vspace{0.4em}%
 }
-% 题目内部标题作为第一个二级 subsection
-\newcommand{\sectionboxfirst}[1]{%
+% 第一个题目内部标题
+\newcommand{\sectionboxfirst}[2]{%
     \noindent\hspace*{1em}%
+    \pdfbookmark[1]{#1}{#2}%
     {\large\bfseries【#1】}\par
     \vspace{0.4em}%
 }
@@ -94,7 +102,7 @@
     commentstyle=\color{green!60!black},
     stringstyle=\color{red},
     numbers=left,
-    numberstyle=\footnotesize\color{gray},
+    numberstyle=\footnotesize\color{gray}\texttt,
     numbersep=8pt,
     xleftmargin=1.5em,
     framexleftmargin=0pt,
@@ -117,6 +125,10 @@
     partopsep=0pt
 }
 
+\xeCJKsetup{
+  underdot/boxdepth = 0pt
+}
+
 \setlength{\intextsep}{0pt}
 
 \begin{document}
@@ -125,10 +137,10 @@
 \thispagestyle{firstpage}
 
 \begin{center}
-    {\huge \textbf{2026 CCF 非专业级软件能力认证}}\\[0.5em]
-    {\huge CSP-J/S 2026 \textbf{第二轮}}\\[0.5em]
-    {\Large 提高组（非官方试卷）}\\[0.5em]
-    {\large 时间: 2026年10月31日 14:30 $\sim$ 18:30}
+    {\Huge \heitiBold{2026 CCF 非专业级软件能力认证}}\\[1.5em]
+    {\Huge CSP-J/S 2026 \heitiBold{第二轮}}\\[1em]
+    {\Huge\kaiti 提高组}\\[0.5em]
+    {\Large 时间: 2026年10月31日 14:30 $\sim$ 18:30}
 \end{center}
 
 \vspace{1em}
@@ -174,7 +186,7 @@
 
 \vspace{1em}
 
-\CJKunderdot{\textbf{注意事项（请仔细阅读）}}
+\Bunderdot{注意事项（请仔细阅读）}
 \begin{enumerate}[label=\arabic*., itemsep=2pt, topsep=4pt]
     \item 文件名（程序名和输入输出文件名）必须使用英文小写。
     \item \texttt{main()} 函数的返回值类型必须是 \texttt{int}，程序正常结束时的返回值必须是 0。
@@ -193,15 +205,15 @@
 
 \problemheading{能量水晶}{crystal}
 
-\sectionboxfirst{题目描述}
+\sectionboxfirst{题目描述}{T1-1}
 
 小 R 有 $n$ 颗能量水晶，其中第 $i$ $(1 \le i \le n)$ 颗的能量值为整数 $a_i$。
 
-小 R 想用其中若干颗能量水晶合成一颗大水晶，用于合成的水晶必须具有相同的能量值。小 R 希望参与合成的水晶尽可能多。他可以进行\CJKunderdot{\textbf{至多}}\,$m$ 次操作。每次操作可以任选一颗水晶，将其能量值增加 $1$；同一颗水晶可以被重复选择。
+小 R 想用其中若干颗能量水晶合成一颗大水晶，用于合成的水晶必须具有相同的能量值。小 R 希望参与合成的水晶尽可能多。他可以进行\Bunderdot{至多}\,$m$ 次操作。每次操作可以任选一颗水晶，将其能量值增加 $1$；同一颗水晶可以被重复选择。
 
 你需要帮助小 R 求出，进行至多 $m$ 次操作后，他最多能用多少颗能量水晶合成一颗大水晶。
 
-\sectionbox{输入格式}
+\sectionbox{输入格式}{T1-2}
 
 从文件 $\boldsymbol{crystal.in}$ 中读入数据。
 
@@ -209,48 +221,48 @@
 
 输入的第二行包含 $n$ 个整数 $a_1,a_2,\ldots,a_n$，依次表示每颗能量水晶的能量值。
 
-\sectionbox{输出格式}
+\sectionbox{输出格式}{T1-3}
 
 输出到文件 $\boldsymbol{crystal.out}$ 中。
 
 输出一行一个正整数，表示进行至多 $m$ 次操作后，小 R 最多能用多少颗能量水晶合成一颗大水晶。
 
-\sectionbox{样例1输入}
+\sectionbox{样例1输入}{T1-4}
 \begin{lstlisting}
 5 5
 1 2 4 8 9
 \end{lstlisting}
 
-\sectionbox{样例1输出}
+\sectionbox{样例1输出}{T1-5}
 \begin{lstlisting}
 3
 \end{lstlisting}
 
-\sectionbox{样例1解释}
+\sectionbox{样例1解释}{T1-6}
 小 R 有 $5$ 颗能量水晶，能量值分别为 $1,2,4,8,9$。他可以对能量值为 $1$ 和 $2$ 的水晶分别操作 $3$ 次和 $2$ 次，使原来能量值为 $1,2,4$ 的三颗水晶的能量值都变成 $4$，共进行 $5$ 次操作。因此小 R 可以用 $3$ 颗能量水晶合成一颗大水晶。
 
-\sectionbox{样例2输入}
+\sectionbox{样例2输入}{T1-7}
 \begin{lstlisting}
 5 8
 -3 -1 2 2 7
 \end{lstlisting}
 
-\sectionbox{样例2输出}
+\sectionbox{样例2输出}{T1-8}
 \begin{lstlisting}
 4
 \end{lstlisting}
 
-\sectionbox{样例3}
+\sectionbox{样例3}{T1-9}
 见题目目录下的 $\boldsymbol{crystal/3.in}$ 与 $\boldsymbol{crystal/3.ans}$。
 
 该样例满足测试点 $8,9$ 的约束条件。
 
-\sectionbox{样例4}
+\sectionbox{样例4}{T1-10}
 见题目目录下的 $\boldsymbol{crystal/4.in}$ 与 $\boldsymbol{crystal/4.ans}$。
 
 该样例满足测试点 $10\sim 12$ 的约束条件。
 
-\sectionbox{数据范围}
+\sectionbox{数据范围}{T1-11}
 
 对于所有测试数据，均有：
 \begin{itemize}
@@ -295,7 +307,7 @@
 
 \problemheading{地铁}{subway}
 
-\sectionboxfirst{题目描述}
+\sectionboxfirst{题目描述}{T2-1}
 
 B 市共有 $m$ 个地铁站，编号为 $1$ 到 $m$。每个地铁站都有一个站厅，地铁口与站厅之间有一条通道，往返耗时相同。从第 $v$（$1 \le v \le m$）个地铁站的地铁口走到站厅需要 $w_v$ 的时间。
 
@@ -307,7 +319,7 @@ B 市共有 $n$ 条地铁线路，编号为 $1$ 到 $n$，其中第 $i$（$1 \le
 
 你需要帮助小 R 求出，每个出行计划的最小总步行时间。
 
-\sectionbox{输入格式}
+\sectionbox{输入格式}{T2-2}
 
 从文件 $\boldsymbol{subway.in}$ 中读入数据。
 
@@ -319,13 +331,13 @@ B 市共有 $n$ 条地铁线路，编号为 $1$ 到 $n$，其中第 $i$（$1 \le
 
 输入的第 $r+n+2$（$1 \le r \le q$）行包含两个正整数 $x_r,y_r$，分别表示第 $r$ 个出行计划的起点和终点所在的地铁站编号。
 
-\sectionbox{输出格式}
+\sectionbox{输出格式}{T2-3}
 
 输出到文件 $\boldsymbol{subway.out}$ 中。
 
 输出 $q$ 行，其中第 $r$（$1 \le r \le q$）行包含一个非负整数，表示第 $r$ 个出行计划的最小总步行时间。
 
-\sectionbox{样例1输入}
+\sectionbox{样例1输入}{T2-4}
 \begin{lstlisting}
 0 2 5 20 2
 4 1 9 2 5
@@ -335,13 +347,13 @@ B 市共有 $n$ 条地铁线路，编号为 $1$ 到 $n$，其中第 $i$（$1 \le
 1 2
 \end{lstlisting}
 
-\sectionbox{样例1输出}
+\sectionbox{样例1输出}{T2-5}
 \begin{lstlisting}
 32
 17
 \end{lstlisting}
 
-\sectionbox{样例1解释}
+\sectionbox{样例1解释}{T2-6}
 
 B 市有 $5$ 个地铁站，从各地铁口走到站厅需要的时间分别为 $4,1,9,2,5$。
 
@@ -357,7 +369,7 @@ $$
 w_1+t_{1,1}+t_{1,2}+w_2=4+5+7+1=17.
 $$
 
-\sectionbox{样例2输入}
+\sectionbox{样例2输入}{T2-7}
 \begin{lstlisting}
 0 3 7 20 2
 8 3 6 1 7 2 9
@@ -368,13 +380,13 @@ $$
 2 3
 \end{lstlisting}
 
-\sectionbox{样例2输出}
+\sectionbox{样例2输出}{T2-8}
 \begin{lstlisting}
 35
 16
 \end{lstlisting}
 
-\sectionbox{样例2解释}
+\sectionbox{样例2解释}{T2-9}
 
 B 市有 $7$ 个地铁站与 $3$ 条地铁线路，其中第 $1$ 条线路依次经过第 $1,2,5$ 个地铁站，第 $2$ 条线路依次经过第 $2,3,7$ 个地铁站，第 $3$ 条线路依次经过第 $3,5,4,6$ 个地铁站。
 
@@ -388,34 +400,34 @@ $$
 w_2+t_{2,1}+t_{2,2}+w_3=16.
 $$
 
-\sectionbox{样例3}
+\sectionbox{样例3}{T2-10}
 见题目目录下的 $\boldsymbol{subway/3.in}$ 与 $\boldsymbol{subway/3.ans}$。
 
 该样例满足测试点 $4\sim 6$ 的约束条件。
 
-\sectionbox{样例4}
+\sectionbox{样例4}{T2-11}
 见题目目录下的 $\boldsymbol{subway/4.in}$ 与 $\boldsymbol{subway/4.ans}$。
 
 该样例满足测试点 $9\sim 11$ 的约束条件。
 
-\sectionbox{样例5}
+\sectionbox{样例5}{T2-12}
 见题目目录下的 $\boldsymbol{subway/5.in}$ 与 $\boldsymbol{subway/5.ans}$。
 
 该样例满足测试点 $12\sim 15$ 的约束条件。
 
-\sectionbox{样例6}
+\sectionbox{样例6}{T2-13}
 见题目目录下的 $\boldsymbol{subway/6.in}$ 与 $\boldsymbol{subway/6.ans}$。
 
 该样例满足测试点 $16\sim 19$ 的约束条件。
 
-\sectionbox{样例7}
+\sectionbox{样例7}{T2-14}
 见题目目录下的 $\boldsymbol{subway/7.in}$ 与 $\boldsymbol{subway/7.ans}$。
 
 该样例满足测试点 $22,23$ 的约束条件。
 
 \clearpage % ！！！找到合适尺寸后移除
 
-\sectionbox{数据范围}
+\sectionbox{数据范围}{T2-15}
 
 对于所有测试数据，均有：
 
@@ -468,7 +480,7 @@ $$
 
 \problemheading{迁徙}{migrate}
 
-\sectionboxfirst{题目描述}
+\sectionboxfirst{题目描述}{T3-1}
 
 海上有 $n$ 座岛屿，自北向南排成一条直线，其中第 $i$（$1 \le i \le n$）座岛屿在这条直线上的坐标为整数 $x_i$，且 $x_1 < x_2 < \cdots < x_n$。每年秋季，一群海鸟会沿着这条直线在南北方向上迁徙，小 P 正在观察它们。
 
@@ -476,15 +488,15 @@ $$
 
 对于两座不同的岛屿 $u,v$（$1 \le u,v \le n$），一条从第 $u$ 座岛屿到第 $v$ 座岛屿的路径形如 $y_1 \to y_2 \to \cdots \to y_m$，其中 $y_1=u$，$y_m=v$，且对于所有 $l$（$1 \le l \le m-1$），海鸟都能够从第 $y_l$ 座岛屿直接飞到第 $y_{l+1}$ 座岛屿；其长度为 $m-1$，即海鸟在路径中飞行的次数。
 
-小 P 发现，海鸟在迁徙时总是会选择长度最短的路径。对于两座岛屿 $u,v$（$1 \le u < v \le n$），若从第 $u$ 座岛屿到第 $v$ 座岛屿的长度最短的路径\CJKunderdot{\textbf{恰好}}有两条，海鸟可以分成两群，分别沿其中一条飞往第 $v$ 座岛屿；此时称 $(u,v)$ 为\CJKunderdot{\textbf{双径岛屿对}}。两条路径不同，当且仅当它们经过的岛屿序列不完全相同。
+小 P 发现，海鸟在迁徙时总是会选择长度最短的路径。对于两座岛屿 $u,v$（$1 \le u < v \le n$），若从第 $u$ 座岛屿到第 $v$ 座岛屿的长度最短的路径\Bunderdot{恰好}有两条，海鸟可以分成两群，分别沿其中一条飞往第 $v$ 座岛屿；此时称 $(u,v)$ 为\Bunderdot{双径岛屿对}。两条路径不同，当且仅当它们经过的岛屿序列不完全相同。
 
 你需要帮助小 P 求出双径岛屿对的数量。
 
-\sectionbox{输入格式}
+\sectionbox{输入格式}{T3-2}
 
 从文件 $\boldsymbol{migrate.in}$ 中读入数据。
 
-\CJKunderdot{\textbf{本题包含多组测试数据。}}
+\Bunderdot{本题包含多组测试数据。}
 
 输入的第一行包含两个非负整数 $c,t$，分别表示测试点编号与测试数据组数。特别地，若 $c=0$，则该测试点为样例。
 
@@ -495,13 +507,13 @@ $$
     \item 第二行包含 $n$ 个严格递增的整数 $x_1,x_2,\ldots,x_n$，依次表示每座岛屿的坐标。
 \end{itemize}
 
-\sectionbox{输出格式}
+\sectionbox{输出格式}{T3-3}
 
 输出到文件 $\boldsymbol{migrate.out}$ 中。
 
 对于每组测试数据，输出一行一个非负整数，表示双径岛屿对的数量。
 
-\sectionbox{样例1输入}
+\sectionbox{样例1输入}{T3-4}
 \begin{lstlisting}
 0 2
 4 2
@@ -510,13 +522,13 @@ $$
 1 2 3 4 5
 \end{lstlisting}
 
-\sectionbox{样例1输出}
+\sectionbox{样例1输出}{T3-5}
 \begin{lstlisting}
 1
 2
 \end{lstlisting}
 
-\sectionbox{样例1解释}
+\sectionbox{样例1解释}{T3-6}
 
 该样例共包含两组测试数据。
 
@@ -524,7 +536,7 @@ $$
 
 对于第二组测试数据，共有 $2$ 个双径岛屿对，分别为 $(1,4)$ 和 $(2,5)$。从第 $1$ 座岛屿到第 $5$ 座岛屿只有一条长度最短的路径 $1 \to 3 \to 5$，因此 $(1,5)$ 不是双径岛屿对。
 
-\sectionbox{样例2输入}
+\sectionbox{样例2输入}{T3-7}
 \begin{lstlisting}
 0 2
 5 3
@@ -533,13 +545,13 @@ $$
 -4 -3 -2 -1 3 6
 \end{lstlisting}
 
-\sectionbox{样例2输出}
+\sectionbox{样例2输出}{T3-8}
 \begin{lstlisting}
 0
 1
 \end{lstlisting}
 
-\sectionbox{样例2解释}
+\sectionbox{样例2解释}{T3-9}
 
 该样例共包含两组测试数据。
 
@@ -547,27 +559,27 @@ $$
 
 对于第二组测试数据，仅有 $1$ 个双径岛屿对 $(1,4)$。从第 $1$ 座岛屿到第 $4$ 座岛屿有两条长度最短的路径，分别为 $1 \to 2 \to 4$ 和 $1 \to 3 \to 4$。第 $5$ 座和第 $6$ 座岛屿均无法到达任何其他岛屿。
 
-\sectionbox{样例3}
+\sectionbox{样例3}{T3-10}
 见题目目录下的 $\boldsymbol{migrate/3.in}$ 与 $\boldsymbol{migrate/3.ans}$。
 
 该样例满足测试点 $3\sim 6$ 的约束条件。
 
-\sectionbox{样例4}
+\sectionbox{样例4}{T3-11}
 见题目目录下的 $\boldsymbol{migrate/4.in}$ 与 $\boldsymbol{migrate/4.ans}$。
 
 该样例满足测试点 $11,12$ 的约束条件。
 
-\sectionbox{样例5}
+\sectionbox{样例5}{T3-12}
 见题目目录下的 $\boldsymbol{migrate/5.in}$ 与 $\boldsymbol{migrate/5.ans}$。
 
 该样例满足测试点 $15\sim18$ 的约束条件。
 
-\sectionbox{样例6}
+\sectionbox{样例6}{T3-13}
 见题目目录下的 $\boldsymbol{migrate/6.in}$ 与 $\boldsymbol{migrate/6.ans}$。
 
 该样例满足测试点 $19\sim21$ 的约束条件。
 
-\sectionbox{数据范围}
+\sectionbox{数据范围}{T3-14}
 
 设 $N$ 为单个测试点内所有测试数据的 $n$ 的和。对于所有测试数据，均有：
 
@@ -615,23 +627,23 @@ $$
 
 \problemheading{研发基地}{hub}
 
-\sectionboxfirst{题目描述}
+\sectionboxfirst{题目描述}{T4-1}
 
 小 W 曾是一名科研爱好者。在 C 国工作时，他担任测试员，日复一日地测试各种新型传送门，在城市之间来回穿梭。久而久之，他厌倦了这样的生活，于是辞去工作，来到没有任何传送门的 D 国，希望在这里重新找回对研发的热爱。
 
 在开始研发之前，小 W 需要建造研发基地。D 国共有 $n$ 座城市，编号为 $1$ 到 $n$。这 $n$ 座城市由 $n-1$ 条道路连接，其中第 $i\ (1\le i\le n-1)$ 条道路连接第 $u_i$ 座和第 $v_i$ 座城市。若将每座城市视作一个点，将每条道路视作连接两个点的边，则这 $n$ 座城市和 $n-1$ 条道路构成一棵树 $T$。
 
-小 W 的经费有限，他计划选择\CJKunderdot{\textbf{恰好}}\,$k$ 座城市，在每座选中的城市里各建造一个研发基地。为了便于这些基地之间的协作，小 W 希望选中的城市在 $T$ 中对应的点形成\CJKunderdot{\textbf{不超过两个连通块}}。形式化地，定义建造方案 $S\subseteq\{1,2,\ldots,n\}$ 是\CJKunderdot{\textbf{合理的}}，当且仅当 $|S|=k$，且 $S$ 在 $T$ 中形成的连通块数量不超过 $2$。
+小 W 的经费有限，他计划选择\Bunderdot{恰好}\,$k$ 座城市，在每座选中的城市里各建造一个研发基地。为了便于这些基地之间的协作，小 W 希望选中的城市在 $T$ 中对应的点形成\Bunderdot{不超过两个连通块}。形式化地，定义建造方案 $S\subseteq\{1,2,\ldots,n\}$ 是\Bunderdot{合理的}，当且仅当 $|S|=k$，且 $S$ 在 $T$ 中形成的连通块数量不超过 $2$。
 
-对于合理的建造方案 $S$，定义第 $i\ (1\le i\le n)$ 座城市的\CJKunderdot{\textbf{通勤距离}}为 $d(i)=\min_{j\in S}\operatorname{dist}(i,j)$，其中 $\operatorname{dist}(i,j)$ 表示从第 $i$ 座城市到第 $j$ 座城市所需经过的道路的最少条数。特别地，若 $i\in S$，则 $d(i)=0$。定义该建造方案的\CJKunderdot{\textbf{通勤半径}}为所有城市通勤距离的最大值，即 $\max_{i=1}^{n}d(i)$。
+对于合理的建造方案 $S$，定义第 $i\ (1\le i\le n)$ 座城市的\Bunderdot{通勤距离}为 $d(i)=\min_{j\in S}\operatorname{dist}(i,j)$，其中 $\operatorname{dist}(i,j)$ 表示从第 $i$ 座城市到第 $j$ 座城市所需经过的道路的最少条数。特别地，若 $i\in S$，则 $d(i)=0$。定义该建造方案的\Bunderdot{通勤半径}为所有城市通勤距离的最大值，即 $\max_{i=1}^{n}d(i)$。
 
 你需要帮助小 W 求出，所有合理的建造方案的通勤半径的最小值。
 
-\sectionbox{输入格式}
+\sectionbox{输入格式}{T4-2}
 
 从文件 $\boldsymbol{hub.in}$ 中读入数据。
 
-\CJKunderdot{\textbf{本题包含多组测试数据。}}
+\Bunderdot{本题包含多组测试数据。}
 
 输入的第一行包含两个非负整数 $c,t$，分别表示测试点编号与测试数据组数。特别地，若 $c=0$，则该测试点为样例。
 
@@ -642,13 +654,13 @@ $$
     \item 第 $i+1\ (1\le i\le n-1)$ 行包含两个正整数 $u_i,v_i$，分别表示第 $i$ 条道路连接的两座城市的编号。
 \end{itemize}
 
-\sectionbox{输出格式}
+\sectionbox{输出格式}{T4-2}
 
 输出到文件 $\boldsymbol{hub.out}$ 中。
 
 对于每组测试数据，输出一行一个非负整数，表示所有合理的建造方案的通勤半径的最小值。
 
-\sectionbox{样例1输入}
+\sectionbox{样例1输入}{T4-3}
 \begin{lstlisting}
 0 2
 5 2
@@ -668,13 +680,13 @@ $$
 9 10
 \end{lstlisting}
 
-\sectionbox{样例1输出}
+\sectionbox{样例1输出}{T4-4}
 \begin{lstlisting}
 1
 2
 \end{lstlisting}
 
-\sectionbox{样例1解释}
+\sectionbox{样例1解释}{T4-5}
 
 该样例共包含两组测试数据。
 
@@ -690,27 +702,27 @@ $$
 
 对于第二组测试数据，一种合理的建造方案为 $S=\{2,7,9\}$，其中第 $2$ 座城市单独构成一个连通块，第 $7$ 座和第 $9$ 座城市构成一个连通块。该建造方案的通勤半径为 $2$。
 
-\sectionbox{样例2}
+\sectionbox{样例2}{T4-6}
 见题目目录下的 $\boldsymbol{hub/2.in}$ 与 $\boldsymbol{hub/2.ans}$。
 
 该样例满足测试点 $2,3$ 的约束条件。
 
-\sectionbox{样例3}
+\sectionbox{样例3}{T4-7}
 见题目目录下的 $\boldsymbol{hub/3.in}$ 与 $\boldsymbol{hub/3.ans}$。
 
 该样例满足测试点 $8$ 的约束条件。
 
-\sectionbox{样例4}
+\sectionbox{样例4}{T4-8}
 见题目目录下的 $\boldsymbol{hub/4.in}$ 与 $\boldsymbol{hub/4.ans}$。
 
 该样例满足测试点 $11,12$ 的约束条件。
 
-\sectionbox{样例5}
+\sectionbox{样例5}{T4-9}
 见题目目录下的 $\boldsymbol{hub/5.in}$ 与 $\boldsymbol{hub/5.ans}$。
 
 该样例满足测试点 $13,14$ 的约束条件。
 
-\sectionbox{数据范围}
+\sectionbox{数据范围}{T4-10}
 
 设 $N$ 为单个测试点内所有测试数据的 $n$ 的和。对于所有测试数据，均有：
 
