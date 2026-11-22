@@ -9,7 +9,7 @@
 \usepackage{fancyhdr}
 \usepackage{enumitem}
 \usepackage{xcolor}
-\usepackage{hyperref}
+\usepackage[unicode, bookmarksnumbered=true]{hyperref}
 \usepackage{CJKfntef}
 \usepackage{printlen} % 引入打印长度的宏包
 \usepackage{array}
@@ -71,19 +71,22 @@
 % 每道题作为一级 section
 \newcommand{\problemheading}[2]{%
     \clearpage
+    \pdfbookmark[0]{#1（#2）}{#2}%
     \renewcommand{\currentproblem}{#1（#2）}%
     \section*{#1 (#2)}%
 }
 % 题目内部标题作为二级 subsection
-\newcommand{\sectionbox}[1]{
+\newcommand{\sectionbox}[2]{
     \vspace{1.3em}%
     \noindent\hspace*{1em}%
+    \pdfbookmark[1]{#1}{#2}%
     {\large\bfseries【#1】}\par
     \vspace{0.4em}%
 }
 % 第一个题目内部标题
-\newcommand{\sectionboxfirst}[1]{%
+\newcommand{\sectionboxfirst}[2]{%
     \noindent\hspace*{1em}%
+    \pdfbookmark[1]{#1}{#2}%
     {\large\bfseries【#1】}\par
     \vspace{0.4em}%
 }
@@ -202,7 +205,7 @@
 
 \problemheading{旅游}{travel}
 
-\sectionboxfirst{题目描述}
+\sectionboxfirst{题目描述}{T1-1}
 
 小 R 和小 X 准备坐高铁出门旅游。他们买了两张二等座车票，车票上写着各自的车厢号和座位号。两人希望座位相邻，这样旅途中可以坐在一起。
 
@@ -226,13 +229,13 @@
     \item 两张车票对应的座位是否相邻。
 \end{itemize}
 
-\sectionbox{输入格式}
+\sectionbox{输入格式}{T1-2}
 
 从文件 $\boldsymbol{travel.in}$ 中读入数据。
 
 输入的第一行包含四个字符串 $c_1,s_1,c_2,s_2$，分别表示小 R 的车票上的车厢号、座位号，以及小 X 的车票上的车厢号、座位号。
 
-\sectionbox{输出格式}
+\sectionbox{输出格式}{T1-3}
 
 输出到文件 $\boldsymbol{travel.out}$ 中。
 
@@ -240,65 +243,65 @@
 
 \clearpage % ！！！找到合适尺寸后移除
 
-\sectionbox{样例1输入}
+\sectionbox{样例1输入}{T1-4}
 \begin{lstlisting}
 02 01A 02 01B
 \end{lstlisting}
 
-\sectionbox{样例1输出}
+\sectionbox{样例1输出}{T1-5}
 \begin{lstlisting}
 1111
 \end{lstlisting}
 
-\sectionbox{样例1解释}
+\sectionbox{样例1解释}{T1-6}
 \texttt{02} 号车厢是二等座车厢。\texttt{01A} 和 \texttt{01B} 在同一节车厢、同一排、过道的同一侧，并且相邻，因此输出 \texttt{1111}。
 
-\sectionbox{样例2输入}
+\sectionbox{样例2输入}{T1-7}
 \begin{lstlisting}
 02 01C 02 01A
 \end{lstlisting}
 
-\sectionbox{样例2输出}
+\sectionbox{样例2输出}{T1-8}
 \begin{lstlisting}
 1110
 \end{lstlisting}
 
-\sectionbox{样例2解释}
+\sectionbox{样例2解释}{T1-9}
 两个座位在同一节车厢、同一排、过道的同一侧，但 \texttt{01C} 与 \texttt{01A} 中间隔着 \texttt{01B}，不相邻，因此输出 \texttt{1110}。
 
-\sectionbox{样例3输入}
+\sectionbox{样例3输入}{T1-10}
 \begin{lstlisting}
 02 01C 02 01D
 \end{lstlisting}
 
-\sectionbox{样例3输出}
+\sectionbox{样例3输出}{T1-11}
 \begin{lstlisting}
 1100
 \end{lstlisting}
 
-\sectionbox{样例4输入}
+\sectionbox{样例4输入}{T1-12}
 \begin{lstlisting}
 02 02B 02 01A
 \end{lstlisting}
 
-\sectionbox{样例4输出}
+\sectionbox{样例4输出}{T1-13}
 \begin{lstlisting}
 1000
 \end{lstlisting}
 
 \clearpage % ！！！找到合适尺寸后移除
 
-\sectionbox{样例5输入}
+\sectionbox{样例5输入}{T1-14}
 \begin{lstlisting}
 02 01A 03 01A
 \end{lstlisting}
 
-\sectionbox{样例5输出}
+\sectionbox{样例5输出}{T1-15}
 \begin{lstlisting}
 0000
 \end{lstlisting}
 
-\sectionbox{数据范围}
+\sectionbox{数据范围}{T1-16}
 
 对于所有测试数据，均有：
 \begin{itemize}
@@ -339,7 +342,7 @@
 
 \problemheading{回文串}{string}
 
-\sectionboxfirst{题目描述}
+\sectionboxfirst{题目描述}{T2-1}
 
 小 R 有一个长度为 $L$ 的字符串 $S=s_1\ldots s_L$，其中只包含小写英文字母。小 R 发现，虽然 $S$ 可能很长，但它可以分成 $n$ 个连续的段，其中第 $i\ (1\le i\le n)$ 段由 $a_i$ 个小写英文字母 $c_i$ 构成。把这 $n$ 段依次拼接起来便得到 $S$，因此 $L=\sum_{i=1}^{n}a_i$。相邻两段中的字符可以相同。
 
@@ -349,7 +352,7 @@
 
 你需要帮助小 R 求出，他最少需要修改多少个位置的字符，才能将 $S$ 改成回文串。
 
-\sectionbox{输入格式}
+\sectionbox{输入格式}{T2-2}
 
 从文件 $\boldsymbol{string.in}$ 中读入数据。
 
@@ -357,13 +360,13 @@
 
 输入的第 $i+1\ (1\le i\le n)$ 行包含一个正整数 $a_i$ 和一个小写英文字母 $c_i$。
 
-\sectionbox{输出格式}
+\sectionbox{输出格式}{T2-3}
 
 输出到文件 $\boldsymbol{string.out}$ 中。
 
 输出一行一个整数，表示小 R 最少需要修改多少个位置的字符，才能将 $S$ 改成回文串。
 
-\sectionbox{样例1输入}
+\sectionbox{样例1输入}{T2-4}
 \begin{lstlisting}
 3
 2 a
@@ -371,12 +374,12 @@
 1 c
 \end{lstlisting}
 
-\sectionbox{样例1输出}
+\sectionbox{样例1输出}{T2-5}
 \begin{lstlisting}
 2
 \end{lstlisting}
 
-\sectionbox{样例1解释}
+\sectionbox{样例1解释}{T2-6}
 
 小 R 的字符串 $S$ 由 $3$ 段构成：第 $1$ 段由 $2$ 个 \texttt{a} 组成，第 $2$ 段由 $2$ 个 \texttt{b} 组成，第 $3$ 段由 $1$ 个 \texttt{c} 组成，依次拼接得到 $S=\mathtt{aabbc}$。
 
@@ -384,23 +387,23 @@
 
 \clearpage % ！！！找到合适尺寸后移除
 
-\sectionbox{样例2输入}
+\sectionbox{样例2输入}{T2-7}
 \begin{lstlisting}
 2
 2 a
 3 a
 \end{lstlisting}
 
-\sectionbox{样例2输出}
+\sectionbox{样例2输出}{T2-8}
 \begin{lstlisting}
 0
 \end{lstlisting}
 
-\sectionbox{样例2解释}
+\sectionbox{样例2解释}{T2-9}
 
 小 R 的字符串 $S$ 由 $2$ 段构成：第 $1$ 段由 $2$ 个 \texttt{a} 组成，第 $2$ 段由 $3$ 个 \texttt{a} 组成，依次拼接得到 $S=\mathtt{aaaaa}$，则 $S$ 已经是回文串，不需要修改。
 
-\sectionbox{样例3输入}
+\sectionbox{样例3输入}{T2-10}
 \begin{lstlisting}
 6
 1000000000 a
@@ -411,29 +414,29 @@
 1000000000 b
 \end{lstlisting}
 
-\sectionbox{样例3输出}
+\sectionbox{样例3输出}{T2-11}
 \begin{lstlisting}
 3000000000
 \end{lstlisting}
 
-\sectionbox{样例4}
+\sectionbox{样例4}{T2-12}
 见题目目录下的 $\boldsymbol{string/4.in}$ 与 $\boldsymbol{string/4.ans}$。
 
 该样例满足测试点 $10\sim 12$ 的约束条件。
 
-\sectionbox{样例5}
+\sectionbox{样例5}{T2-13}
 见题目目录下的 $\boldsymbol{string/5.in}$ 与 $\boldsymbol{string/5.ans}$。
 
 该样例满足测试点 $13\sim 16$ 的约束条件。
 
-\sectionbox{样例6}
+\sectionbox{样例6}{T2-14}
 见题目目录下的 $\boldsymbol{string/6.in}$ 与 $\boldsymbol{string/6.ans}$。
 
 该样例满足测试点 $19\sim 21$ 的约束条件。
 
 \clearpage % ！！！找到合适尺寸后移除
 
-\sectionbox{数据范围}
+\sectionbox{数据范围}{T2-15}
 
 对于所有测试数据，均有：
 
@@ -483,7 +486,7 @@
 
 \problemheading{按位与}{and}
 
-\sectionboxfirst{题目描述}
+\sectionboxfirst{题目描述}{T3-1}
 
 小 R 有 $n$ 个非负整数 $a_1,a_2,\ldots,a_n$。
 
@@ -491,7 +494,7 @@
 
 你需要帮助小 R 求出，他能选出的 $m$ 个数的按位与的最大值。
 
-\sectionbox{输入格式}
+\sectionbox{输入格式}{T3-2}
 
 从文件 $\boldsymbol{and.in}$ 中读入数据。
 
@@ -499,24 +502,24 @@
 
 输入的第二行包含 $n$ 个非负整数 $a_1,a_2,\ldots,a_n$，依次表示小 R 的 $n$ 个非负整数。
 
-\sectionbox{输出格式}
+\sectionbox{输出格式}{T3-3}
 
 输出到文件 $\boldsymbol{and.out}$ 中。
 
 输出一行一个非负整数，表示小 R 能选出的 $m$ 个数的按位与的最大值。
 
-\sectionbox{样例1输入}
+\sectionbox{样例1输入}{T3-4}
 \begin{lstlisting}
 4 2
 3 15 12 12
 \end{lstlisting}
 
-\sectionbox{样例1输出}
+\sectionbox{样例1输出}{T3-5}
 \begin{lstlisting}
 12
 \end{lstlisting}
 
-\sectionbox{样例1解释}
+\sectionbox{样例1解释}{T3-6}
 
 小 R 有 $4$ 个非负整数：$3,15,12,12$。
 
@@ -529,7 +532,7 @@
 
 因此，小 R 能选出的 $m$ 个数的按位与的最大值为 $12$。
 
-\sectionbox{样例2输入}
+\sectionbox{样例2输入}{T3-7}
 \begin{lstlisting}
 5 3
 31 3 1 15 7
@@ -537,31 +540,31 @@
 
 \clearpage % ！！！找到合适尺寸后移除
 
-\sectionbox{样例2输出}
+\sectionbox{样例2输出}{T3-8}
 \begin{lstlisting}
 7
 \end{lstlisting}
 
-\sectionbox{样例2解释}
+\sectionbox{样例2解释}{T3-9}
 
 若小 R 选择 $31,15,7$，则按位与的值为 $31\mathbin{\mathrm{and}}15\mathbin{\mathrm{and}}7=7$。可以证明，小 R 能选出的 $m$ 个数的按位与的最大值为 $7$。
 
-\sectionbox{样例3}
+\sectionbox{样例3}{T3-10}
 见题目目录下的 $\boldsymbol{and/3.in}$ 与 $\boldsymbol{and/3.ans}$。
 
 该样例满足测试点 $8\sim 10$ 的约束条件。
 
-\sectionbox{样例4}
+\sectionbox{样例4}{T3-11}
 见题目目录下的 $\boldsymbol{and/4.in}$ 与 $\boldsymbol{and/4.ans}$。
 
 该样例满足测试点 $14,15$ 的约束条件。
 
-\sectionbox{样例5}
+\sectionbox{样例5}{T3-12}
 见题目目录下的 $\boldsymbol{and/5.in}$ 与 $\boldsymbol{and/5.ans}$。
 
 该样例满足测试点 $18,19$ 的约束条件。
 
-\sectionbox{数据范围}
+\sectionbox{数据范围}{T3-13}
 
 对于所有测试数据，均有：
 
@@ -612,7 +615,7 @@
 
 \problemheading{纸牌游戏}{card}
 
-\sectionboxfirst{题目描述}
+\sectionboxfirst{题目描述}{T4-1}
 
 小 Z 正在玩一种单人纸牌游戏。
 
@@ -635,7 +638,7 @@
 
 你需要帮助小 Z 依次求出，对于每个 $i=1,2,\ldots,m$，在所有 $n$ 局游戏中，有多少局结束时桌面上留有点数为 $i$ 的牌。
 
-\sectionbox{输入格式}
+\sectionbox{输入格式}{T4-2}
 
 从文件 $\boldsymbol{card.in}$ 中读入数据。
 
@@ -643,24 +646,24 @@
 
 输入的第二行包含 $n$ 个正整数 $a_1,a_2,\ldots,a_n$，依次表示小 Z 的牌从上到下的点数。
 
-\sectionbox{输出格式}
+\sectionbox{输出格式}{T4-3}
 
 输出到文件 $\boldsymbol{card.out}$ 中。
 
 输出一行 $m$ 个非负整数，其中第 $i$（$1\le i\le m$）个整数表示在所有 $n$ 局游戏中，有多少局结束时桌面上留有点数为 $i$ 的牌。
 
-\sectionbox{样例1输入}
+\sectionbox{样例1输入}{T4-4}
 \begin{lstlisting}
 4 3
 1 2 1 3
 \end{lstlisting}
 
-\sectionbox{样例1输出}
+\sectionbox{样例1输出}{T4-5}
 \begin{lstlisting}
 3 1 4
 \end{lstlisting}
 
-\sectionbox{样例1解释}
+\sectionbox{样例1解释}{T4-6}
 
 对于第 $1$ 局游戏，小 Z 依次打出点数为 $1,2,1,3$ 的牌：
 
@@ -687,40 +690,40 @@
     \item 有 $4$ 局游戏结束时，桌面上留有点数为 $3$ 的牌，即全部 $4$ 局。
 \end{itemize}
 
-\sectionbox{样例2输入}
+\sectionbox{样例2输入}{T4-7}
 \begin{lstlisting}
 10 3
 3 1 2 1 3 2 3 1 2 1
 \end{lstlisting}
 
-\sectionbox{样例2输出}
+\sectionbox{样例2输出}{T4-8}
 \begin{lstlisting}
 10 3 3
 \end{lstlisting}
 
-\sectionbox{样例3}
+\sectionbox{样例3}{T4-9}
 见题目目录下的 $\boldsymbol{card/3.in}$ 与 $\boldsymbol{card/3.ans}$。
 
 该样例满足测试点 $4\sim 6$ 的约束条件。
 
-\sectionbox{样例4}
+\sectionbox{样例4}{T4-10}
 见题目目录下的 $\boldsymbol{card/4.in}$ 与 $\boldsymbol{card/4.ans}$。
 
 该样例满足测试点 $7\sim 9$ 的约束条件。
 
-\sectionbox{样例5}
+\sectionbox{样例5}{T4-11}
 见题目目录下的 $\boldsymbol{card/5.in}$ 与 $\boldsymbol{card/5.ans}$。
 
 该样例满足测试点 $15\sim 17$ 的约束条件。
 
 \clearpage % ！！！找到合适尺寸后移除
 
-\sectionbox{样例6}
+\sectionbox{样例6}{T4-12}
 见题目目录下的 $\boldsymbol{card/6.in}$ 与 $\boldsymbol{card/6.ans}$。
 
 该样例满足测试点 $21,22$ 的约束条件。
 
-\sectionbox{数据范围}
+\sectionbox{数据范围}{T4-13}
 
 对于所有测试数据，均有：
 
