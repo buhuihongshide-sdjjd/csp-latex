@@ -2,11 +2,6 @@
 
 \usepackage[a4paper, margin=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
 \usepackage[UTF8,fontset=mac]{ctex}
-\setCJKmainfont[
-    BoldFont = {Heiti SC},
-    BoldFeatures = {FakeBold = 3}
-]{Songti SC}
-
 \usepackage{fontspec}
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage{booktabs}
@@ -25,7 +20,19 @@
 \usepackage{multirow}
 \usepackage{fontspec}
 
-\setmonofont{Menlo}
+% 字体
+\setmonofont{Consolas}
+\setCJKmainfont[
+    UprightFont = {Songti SC Light},
+    BoldFont = {Heiti SC Medium}
+]{Songti SC}
+\newcommand{\heitiBold}[1]{%
+    \raisebox{-0.04em}{\textbf{#1}}%
+}
+\newcommand{\Bunderdot}[1]{% 加粗 + 下加点
+    \CJKunderdot{\raisebox{-0.04em}{\textbf{#1}}}
+}
+\newCJKfontfamily{\kaiti}{Kaiti SC}
 
 % 一级标题：居中、大号、加粗
 \titleformat{\section}
@@ -46,19 +53,17 @@
 \fancyhf{}
 \newcommand{\currentproblem}{}% 当前题目的中文名称
 \fancyhead[L]{\small 2026 CCF 非专业级软件能力认证 CSP-J/S 2026 第二轮} % 左上角：考试名称
-\fancyhead[R]{\small 入门组（非官方试卷）\ \currentproblem} % 右上角：组别 + 当前题目名称
+\fancyhead[R]{\small 入门组\ \currentproblem} % 右上角：组别 + 当前题目名称
 \fancyfoot[C]{%
     \small 第 \thepage\ 页 \hspace{1em} 共 \textcolor{blue}{\pdfpagerefbox} 页
 } % 页脚：总页数用蓝色显示
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0pt}
 \newcommand{\pdfpagerefbox}{12} % 手动设置总页数
+
 % 首页专用页眉页脚样式
 \fancypagestyle{firstpage}{
     \fancyhf{}
-    % \fancyfoot[C]{%
-    %     \small 第 \thepage\ 页 / 共 \textcolor{blue}{\pdfpagerefbox} 页%
-    % }
     \renewcommand{\headrulewidth}{0pt}
 }
 
@@ -76,7 +81,7 @@
     {\large\bfseries【#1】}\par
     \vspace{0.4em}%
 }
-% 题目内部标题作为第一个二级 subsection
+% 第一个题目内部标题
 \newcommand{\sectionboxfirst}[1]{%
     \noindent\hspace*{1em}%
     {\large\bfseries【#1】}\par
@@ -94,7 +99,7 @@
     commentstyle=\color{green!60!black},
     stringstyle=\color{red},
     numbers=left,
-    numberstyle=\footnotesize\color{gray},
+    numberstyle=\footnotesize\color{gray}\texttt,
     numbersep=8pt,
     xleftmargin=1.5em,
     framexleftmargin=0pt,
@@ -117,6 +122,10 @@
     partopsep=0pt
 }
 
+\xeCJKsetup{
+  underdot/boxdepth = 0pt
+}
+
 \setlength{\intextsep}{0pt}
 
 \begin{document}
@@ -125,10 +134,10 @@
 \thispagestyle{firstpage}
 
 \begin{center}
-    {\huge \textbf{2026 CCF 非专业级软件能力认证}}\\[0.5em]
-    {\huge CSP-J/S 2026 \textbf{第二轮}}\\[0.5em]
-    {\Large 入门组（非官方试卷）}\\[0.5em]
-    {\large 时间: 2026年10月31日 08:30 $\sim$ 12:00}
+    {\Huge \heitiBold{2026 CCF 非专业级软件能力认证}}\\[1.5em]
+    {\Huge CSP-J/S 2026 \heitiBold{第二轮}}\\[1em]
+    {\Huge\kaiti 入门组}\\[0.5em]
+    {\Large 时间: 2026年10月31日 08:30 $\sim$ 12:00}
 \end{center}
 
 \vspace{1em}
@@ -174,7 +183,7 @@
 
 \vspace{1em}
 
-\CJKunderdot{\textbf{注意事项（请仔细阅读）}}
+\Bunderdot{注意事项（请仔细阅读）}
 \begin{enumerate}[label=\arabic*., itemsep=2pt, topsep=4pt]
     \item 文件名（程序名和输入输出文件名）必须使用英文小写。
     \item \texttt{main()} 函数的返回值类型必须是 \texttt{int}，程序正常结束时的返回值必须是 0。
@@ -478,7 +487,7 @@
 
 小 R 有 $n$ 个非负整数 $a_1,a_2,\ldots,a_n$。
 
-小 X 给了小 R 一个正整数 $m$，并要求小 R 从这 $n$ 个非负整数中选出\CJKunderdot{\textbf{恰好}}\, $m$ 个，使得选出的 $m$ 个数的\CJKunderdot{\textbf{二进制按位与}}的值最大。
+小 X 给了小 R 一个正整数 $m$，并要求小 R 从这 $n$ 个非负整数中选出\Bunderdot{恰好}\, $m$ 个，使得选出的 $m$ 个数的\Bunderdot{二进制按位与}的值最大。
 
 你需要帮助小 R 求出，他能选出的 $m$ 个数的按位与的最大值。
 

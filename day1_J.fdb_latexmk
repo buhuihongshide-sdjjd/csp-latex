@@ -1,10 +1,10 @@
 # Fdb version 4
-["xdvipdfmx"] 1795339987.98466 "day1_J.xdv" "day1_J.pdf" "day1_J" 1795339988.47721 0
-  "day1_J.xdv" 1795339987.92492 130848 a4f4441e7c9b363d2f2348e39e926a48 "xelatex"
+["xdvipdfmx"] 1795343384.62245 "day1_J.xdv" "day1_J.pdf" "day1_J" 1795343385.07609 0
+  "day1_J.xdv" 1795343384.57523 129600 fe5a33babc530b279a19630e41f3f7d7 "xelatex"
   (generated)
   "day1_J.pdf"
   (rewritten before read)
-["xelatex"] 1795339987.34871 "day1_J.tex" "day1_J.xdv" "day1_J" 1795339988.47643 0
+["xelatex"] 1795343383.99151 "day1_J.tex" "day1_J.xdv" "day1_J" 1795343385.07533 0
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm" 1246382020 1120 7f9f170e8aa57527ad6c49feafd45d54 ""
@@ -125,9 +125,9 @@
   "/usr/local/texlive/2026/texmf-dist/web2c/texmf.cnf" 1770478701 43630 e9fa012910491fe5ae08a72c3c2997a7 ""
   "/usr/local/texlive/2026/texmf-var/web2c/xetex/xelatex.fmt" 1793528936 5948566 3bf8d6c9648bbc51804d420abacffb7c ""
   "/usr/local/texlive/2026/texmf.cnf" 1774209515 577 648cd9f92f9c0eac486f4c71c85cfbbe ""
-  "day1_J.aux" 1795339987.92424 167 a937b664b6ebef617abe4b109d18ee2a "xelatex"
-  "day1_J.out" 1795339987.82256 0 d41d8cd98f00b204e9800998ecf8427e "xelatex"
-  "day1_J.tex" 1795273407.98373 25857 9e57e2ec9d33d4d901cfd8ecdf0f3ebc ""
+  "day1_J.aux" 1795343384.57464 167 a937b664b6ebef617abe4b109d18ee2a "xelatex"
+  "day1_J.out" 1795343384.46512 0 d41d8cd98f00b204e9800998ecf8427e "xelatex"
+  "day1_J.tex" 1795343381.80887 25933 8b2048d5e5e9185280ff61b45d8a1bad ""
   "hj5s80cz.png" 1795273407.98878 431377 a1e2dc0e012297e46e7b389c0c49f58c ""
   (generated)
   "day1_J.aux"
